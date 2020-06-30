@@ -235,10 +235,10 @@ public enum JsonValue: String, JsonValueRepresentable {
     
     public var jsonValue: Any {
         switch self {
-        case .inApp:
-            return "in-app"
-        case .inbox:
-            return "inbox"
+            case .inApp:
+                return "in-app"
+            case .inbox:
+                return "inbox"
         }
     }
 }
@@ -249,10 +249,10 @@ public enum JsonValue: String, JsonValueRepresentable {
     
     public var jsonValue: Any {
         switch self {
-        case .back:
-            return "back"
-        case .link:
-            return "link"
+            case .back:
+                return "back"
+            case .link:
+                return "link"
         }
     }
 }
@@ -263,10 +263,10 @@ public enum JsonValue: String, JsonValueRepresentable {
     
     public var jsonValue: Any {
         switch self {
-        case .inboxSwipe:
-            return "inbox-swipe"
-        case .deleteButton:
-            return "delete-button"
+            case .inboxSwipe:
+                return "inbox-swipe"
+            case .deleteButton:
+                return "delete-button"
         }
     }
 }

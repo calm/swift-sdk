@@ -28,10 +28,10 @@ struct InAppContentParser {
     
     private static func contentParser(forContentType contentType: IterableInAppContentType) -> ContentFromJsonParser.Type {
         switch contentType {
-        case .html:
-            return HtmlContentParser.self
-        default:
-            return HtmlContentParser.self
+            case .html:
+                return HtmlContentParser.self
+            default:
+                return HtmlContentParser.self
         }
     }
 }

@@ -206,18 +206,18 @@ extension JsonKey: StringKey {
 extension Dictionary where Key: StringKey {
     subscript(keyPath keyPath: KeyPath) -> Any? {
         switch keyPath.firstAndRest() {
-        case nil:
-            return nil
-        case let (first, rest)? where rest.isEmpty:
-            // nothing else left
-            return self[Key(string: first)]
-        case let (first, rest)?:
-            let key = Key(string: first)
-            if let value = self[key] as? [Key: Any] {
-                return value[keyPath: rest]
-            } else {
+            case nil:
                 return nil
-            }
+            case let (first, rest)? where rest.isEmpty:
+                // nothing else left
+                return self[Key(string: first)]
+            case let (first, rest)?:
+                let key = Key(string: first)
+                if let value = self[key] as? [Key: Any] {
+                    return value[keyPath: rest]
+                } else {
+                    return nil
+                }
         }
     }
 }

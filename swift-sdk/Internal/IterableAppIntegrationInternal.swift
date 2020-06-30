@@ -157,31 +157,31 @@ struct IterableAppIntegrationInternal {
         
         if case let NotificationInfo.silentPush(silentPush) = NotificationHelper.inspect(notification: userInfo) {
             switch silentPush.notificationType {
-            case .update:
-                _ = inAppNotifiable.scheduleSync()
-            case .remove:
-                if let messageId = silentPush.messageId {
-                    inAppNotifiable.onInAppRemoved(messageId: messageId)
-                } else {
-                    ITBError("messageId not found in 'remove' silent push")
-                }
+                case .update:
+                    _ = inAppNotifiable.scheduleSync()
+                case .remove:
+                    if let messageId = silentPush.messageId {
+                        inAppNotifiable.onInAppRemoved(messageId: messageId)
+                    } else {
+                        ITBError("messageId not found in 'remove' silent push")
+                    }
             }
         } else {
             switch application.applicationState {
-            case .active:
-                break
-            case .background:
-                break
-            case .inactive:
-                if #available(iOS 10, *) {
-                } else {
-                    // iOS 10+ notification actions are handled by userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:
-                    // so this should only be executed if iOS 10 is not available.
-                    performDefaultNotificationAction(userInfo)
-                }
-                break
-            @unknown default:
-                break
+                case .active:
+                    break
+                case .background:
+                    break
+                case .inactive:
+                    if #available(iOS 10, *) {
+                    } else {
+                        // iOS 10+ notification actions are handled by userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:
+                        // so this should only be executed if iOS 10 is not available.
+                        performDefaultNotificationAction(userInfo)
+                    }
+                    break
+                @unknown default:
+                    break
             }
         }
         

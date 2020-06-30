@@ -262,10 +262,10 @@ class InAppManager: NSObject, IterableInternalInAppManagerProtocol {
     
     private func getMessagesMap(fromMessagesProcessorResult messagesProcessorResult: MessagesProcessorResult) -> OrderedDictionary<String, IterableInAppMessage> {
         switch messagesProcessorResult {
-        case let .noShow(messagesMap: messagesMap):
-            return messagesMap
-        case .show(message: _, messagesMap: let messagesMap):
-            return messagesMap
+            case let .noShow(messagesMap: messagesMap):
+                return messagesMap
+            case .show(message: _, messagesMap: let messagesMap):
+                return messagesMap
         }
     }
     
@@ -298,34 +298,34 @@ class InAppManager: NSObject, IterableInternalInAppManagerProtocol {
         }
         
         switch displayer.showInApp(message: message) {
-        case let .notShown(reason):
-            ITBError("Could not show message: \(reason)")
-        case let .shown(futureClickedURL):
-            // set read
-            ITBDebug("in-app shown")
-            set(read: true, forMessage: message)
-            
-            updateMessage(message, didProcessTrigger: true, consumed: consume)
-            
-            futureClickedURL.onSuccess { url in
-                ITBDebug("in-app clicked")
-                // call the client callback, if present
-                _ = callback?(url)
+            case let .notShown(reason):
+                ITBError("Could not show message: \(reason)")
+            case let .shown(futureClickedURL):
+                // set read
+                ITBDebug("in-app shown")
+                set(read: true, forMessage: message)
                 
-                // in addition perform action or url delegate task
-                self.handle(clickedUrl: url, forMessage: message, location: .inApp)
+                updateMessage(message, didProcessTrigger: true, consumed: consume)
                 
-                // set the dismiss time
-                self.lastDismissedTime = self.dateProvider.currentDate
-                ITBDebug("Setting last dismissed time: \(String(describing: self.lastDismissedTime))")
-                
-                // check if we need to process more in-apps
-                self.scheduleNextInAppMessage()
-                
-                if consume {
-                    self.apiClient?.inAppConsume(messageId: message.messageId)
+                futureClickedURL.onSuccess { url in
+                    ITBDebug("in-app clicked")
+                    // call the client callback, if present
+                    _ = callback?(url)
+                    
+                    // in addition perform action or url delegate task
+                    self.handle(clickedUrl: url, forMessage: message, location: .inApp)
+                    
+                    // set the dismiss time
+                    self.lastDismissedTime = self.dateProvider.currentDate
+                    ITBDebug("Setting last dismissed time: \(String(describing: self.lastDismissedTime))")
+                    
+                    // check if we need to process more in-apps
+                    self.scheduleNextInAppMessage()
+                    
+                    if consume {
+                        self.apiClient?.inAppConsume(messageId: message.messageId)
+                    }
                 }
-            }
         }
     }
     
@@ -421,14 +421,14 @@ class InAppManager: NSObject, IterableInternalInAppManagerProtocol {
         }
         
         switch inAppClickedUrl {
-        case let .iterableCustomAction(name: iterableCustomActionName):
-            handleIterableCustomAction(name: iterableCustomActionName, forMessage: message, location: location)
-        case let .customAction(name: customActionName):
-            handleUrlOrAction(urlOrAction: customActionName)
-        case let .localResource(name: localResourceName):
-            handleUrlOrAction(urlOrAction: localResourceName)
-        case .regularUrl:
-            handleUrlOrAction(urlOrAction: theUrl.absoluteString)
+            case let .iterableCustomAction(name: iterableCustomActionName):
+                handleIterableCustomAction(name: iterableCustomActionName, forMessage: message, location: location)
+            case let .customAction(name: customActionName):
+                handleUrlOrAction(urlOrAction: customActionName)
+            case let .localResource(name: localResourceName):
+                handleUrlOrAction(urlOrAction: localResourceName)
+            case .regularUrl:
+                handleUrlOrAction(urlOrAction: theUrl.absoluteString)
         }
     }
     
@@ -438,10 +438,10 @@ class InAppManager: NSObject, IterableInternalInAppManagerProtocol {
         }
         
         switch iterableCustomActionName {
-        case .delete:
-            remove(message: message, location: location, source: .deleteButton)
-        case .dismiss:
-            break
+            case .delete:
+                remove(message: message, location: location, source: .deleteButton)
+            case .dismiss:
+                break
         }
     }
     

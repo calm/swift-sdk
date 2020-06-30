@@ -11,12 +11,12 @@ import UIKit
 extension IterableInAppContentType: CustomStringConvertible {
     public var description: String {
         switch self {
-        case .html:
-            return "html"
-        case .alert:
-            return "alert"
-        case .banner:
-            return "banner"
+            case .html:
+                return "html"
+            case .alert:
+                return "alert"
+            case .banner:
+                return "banner"
         }
     }
 }
@@ -24,14 +24,14 @@ extension IterableInAppContentType: CustomStringConvertible {
 extension IterableInAppContentType {
     static func from(string: String) -> IterableInAppContentType {
         switch string.lowercased() {
-        case String(describing: IterableInAppContentType.html).lowercased():
-            return .html
-        case String(describing: IterableInAppContentType.alert).lowercased():
-            return .alert
-        case String(describing: IterableInAppContentType.banner).lowercased():
-            return .banner
-        default:
-            return .html
+            case String(describing: IterableInAppContentType.html).lowercased():
+                return .html
+            case String(describing: IterableInAppContentType.alert).lowercased():
+                return .alert
+            case String(describing: IterableInAppContentType.banner).lowercased():
+                return .banner
+            default:
+                return .html
         }
     }
 }
@@ -41,12 +41,12 @@ extension IterableInAppContentType {
 extension IterableInAppTriggerType: CustomStringConvertible {
     public var description: String {
         switch self {
-        case .event:
-            return "event"
-        case .immediate:
-            return "immediate"
-        case .never:
-            return "never"
+            case .event:
+                return "event"
+            case .immediate:
+                return "immediate"
+            case .never:
+                return "never"
         }
     }
 }
@@ -55,14 +55,14 @@ extension IterableInAppTriggerType {
     // Internal
     static func from(string: String) -> IterableInAppTriggerType {
         switch string.lowercased() {
-        case String(describing: IterableInAppTriggerType.immediate).lowercased():
-            return .immediate
-        case String(describing: IterableInAppTriggerType.event).lowercased():
-            return .event
-        case String(describing: IterableInAppTriggerType.never).lowercased():
-            return .never
-        default:
-            return .undefinedTriggerType // if string is not known
+            case String(describing: IterableInAppTriggerType.immediate).lowercased():
+                return .immediate
+            case String(describing: IterableInAppTriggerType.event).lowercased():
+                return .event
+            case String(describing: IterableInAppTriggerType.never).lowercased():
+                return .never
+            default:
+                return .undefinedTriggerType // if string is not known
         }
     }
 }
@@ -309,23 +309,23 @@ extension IterableInAppMessage: Codable {
         let contentType = (try? contentContainer.decode(String.self, forKey: .type)).map { IterableInAppContentType.from(string: $0) } ?? .html
         
         switch contentType {
-        case .html:
-            return (try? container.decode(IterableHtmlInAppContent.self, forKey: .content)) ?? createDefaultContent()
-        default:
-            return (try? container.decode(IterableHtmlInAppContent.self, forKey: .content)) ?? createDefaultContent()
+            case .html:
+                return (try? container.decode(IterableHtmlInAppContent.self, forKey: .content)) ?? createDefaultContent()
+            default:
+                return (try? container.decode(IterableHtmlInAppContent.self, forKey: .content)) ?? createDefaultContent()
         }
     }
     
     private static func encode(content: IterableInAppContent, inContainer container: inout KeyedEncodingContainer<IterableInAppMessage.CodingKeys>) {
         switch content.type {
-        case .html:
-            if let content = content as? IterableHtmlInAppContent {
-                try? container.encode(content, forKey: .content)
-            }
-        default:
-            if let content = content as? IterableHtmlInAppContent {
-                try? container.encode(content, forKey: .content)
-            }
+            case .html:
+                if let content = content as? IterableHtmlInAppContent {
+                    try? container.encode(content, forKey: .content)
+                }
+            default:
+                if let content = content as? IterableHtmlInAppContent {
+                    try? container.encode(content, forKey: .content)
+                }
         }
     }
 }

@@ -30,10 +30,10 @@ class InboxImpressionTracker {
         
         diff.forEach {
             switch $0 {
-            case let .insert(_, row):
-                startImpression(for: row)
-            case let .delete(_, row):
-                endImpression(for: row)
+                case let .insert(_, row):
+                    startImpression(for: row)
+                case let .delete(_, row):
+                    endImpression(for: row)
             }
         }
         

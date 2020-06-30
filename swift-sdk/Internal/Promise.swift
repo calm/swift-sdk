@@ -12,8 +12,8 @@ enum IterableError: Error {
 extension IterableError: LocalizedError {
     public var localizedDescription: String {
         switch self {
-        case let .general(description):
-            return description
+            case let .general(description):
+                return description
         }
     }
 }
@@ -72,10 +72,10 @@ class Future<Value, Failure> where Failure: Error {
     // Report success or error based on result
     private func report(result: Result<Value, Failure>) {
         switch result {
-        case let .success(value):
-            successCallbacks.forEach { $0(value) }
-        case let .failure(error):
-            errorCallbacks.forEach { $0(error) }
+            case let .success(value):
+                successCallbacks.forEach { $0(value) }
+            case let .failure(error):
+                errorCallbacks.forEach { $0(error) }
         }
     }
 }

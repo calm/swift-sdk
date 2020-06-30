@@ -44,10 +44,10 @@ class MockInAppFetcher: InAppFetcherProtocol {
     
     private static func parseResultToOptionalMessage(result: IterableResult<IterableInAppMessage, InAppMessageParser.ParseError>) -> IterableInAppMessage? {
         switch result {
-        case .failure:
-            return nil
-        case let .success(message):
-            return message
+            case .failure:
+                return nil
+            case let .success(message):
+                return message
         }
     }
 }

@@ -46,18 +46,18 @@ struct DeviceInfo: Codable {
     /// Returns UserInterfaceIdiom as String to be passed to server
     private static func getUserInterfaceIdiom() -> String {
         switch UIDevice.current.userInterfaceIdiom {
-        case .phone:
-            return "iPhone"
-        case .pad:
-            return "iPad"
-        case .tv:
-            return "AppleTV"
-        case .carPlay:
-            return "CarPlay"
-        case .unspecified:
-            return "Other"
-        @unknown default:
-            return "Other"
+            case .phone:
+                return "iPhone"
+            case .pad:
+                return "iPad"
+            case .tv:
+                return "AppleTV"
+            case .carPlay:
+                return "CarPlay"
+            case .unspecified:
+                return "Other"
+            @unknown default:
+                return "Other"
         }
     }
 }

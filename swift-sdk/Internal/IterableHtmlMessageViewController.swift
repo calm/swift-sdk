@@ -222,11 +222,11 @@ class IterableHtmlMessageViewController: UIViewController {
         // set center y
         let halfWebViewHeight = inAppHeight / 2
         switch location {
-        case .top:
-            position.center.y = halfWebViewHeight + safeAreaInsets.top
-        case .bottom:
-            position.center.y = parentPosition.height - halfWebViewHeight - safeAreaInsets.bottom
-        default: break
+            case .top:
+                position.center.y = halfWebViewHeight + safeAreaInsets.top
+            case .bottom:
+                position.center.y = parentPosition.height - halfWebViewHeight - safeAreaInsets.bottom
+            default: break
         }
         
         return position

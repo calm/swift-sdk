@@ -89,10 +89,10 @@ struct InAppMessageParser {
         let content: IterableInAppContent
         
         switch InAppContentParser.parse(contentDict: contentDict) {
-        case let .success(parsedContent):
-            content = parsedContent
-        case let .failure(reason):
-            return .failure(.parseFailed(reason: reason, messageId: messageId))
+            case let .success(parsedContent):
+                content = parsedContent
+            case let .failure(reason):
+                return .failure(.parseFailed(reason: reason, messageId: messageId))
         }
         
         let campaignId = json[JsonKey.campaignId.jsonKey] as? NSNumber

@@ -430,12 +430,12 @@ struct RequestCreator {
     
     private var keyValueForCurrentUser: JsonKeyValueRepresentable? {
         switch auth.emailOrUserId {
-        case let .email(email):
-            return JsonKeyValue(key: JsonKey.email, value: email)
-        case let .userId(userId):
-            return JsonKeyValue(key: JsonKey.userId, value: userId)
-        case .none:
-            return nil
+            case let .email(email):
+                return JsonKeyValue(key: JsonKey.email, value: email)
+            case let .userId(userId):
+                return JsonKeyValue(key: JsonKey.userId, value: userId)
+            case .none:
+                return nil
         }
     }
     
@@ -452,16 +452,16 @@ struct RequestCreator {
     
     private static func userInterfaceIdiomEnumToString(_ idiom: UIUserInterfaceIdiom) -> String {
         switch idiom {
-        case .phone:
-            return JsonValue.DeviceIdiom.phone
-        case .pad:
-            return JsonValue.DeviceIdiom.pad
-        case .tv:
-            return JsonValue.DeviceIdiom.tv
-        case .carPlay:
-            return JsonValue.DeviceIdiom.carPlay
-        default:
-            return JsonValue.DeviceIdiom.unspecified
+            case .phone:
+                return JsonValue.DeviceIdiom.phone
+            case .pad:
+                return JsonValue.DeviceIdiom.pad
+            case .tv:
+                return JsonValue.DeviceIdiom.tv
+            case .carPlay:
+                return JsonValue.DeviceIdiom.carPlay
+            default:
+                return JsonValue.DeviceIdiom.unspecified
         }
     }
 }

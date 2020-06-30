@@ -70,18 +70,18 @@ struct DeeplinkHandler {
         static func from(url: URL) -> Deeplink? {
             let page = url.lastPathComponent.lowercased()
             switch page {
-            case "mocha":
-                return .mocha
-            case "latte":
-                return .latte
-            case "cappuccino":
-                return .cappuccino
-            case "black":
-                return .black
-            case "coffee":
-                return parseCoffeeList(fromUrl: url)
-            default:
-                return nil
+                case "mocha":
+                    return .mocha
+                case "latte":
+                    return .latte
+                case "cappuccino":
+                    return .cappuccino
+                case "black":
+                    return .black
+                case "coffee":
+                    return parseCoffeeList(fromUrl: url)
+                default:
+                    return nil
             }
         }
         
@@ -103,16 +103,16 @@ struct DeeplinkHandler {
         // return nil if it refers to coffee list
         func toCoffeeType() -> CoffeeType? {
             switch self {
-            case .coffee:
-                return nil
-            case .black:
-                return .black
-            case .cappuccino:
-                return .cappuccino
-            case .latte:
-                return .latte
-            case .mocha:
-                return .mocha
+                case .coffee:
+                    return nil
+                case .black:
+                    return .black
+                case .cappuccino:
+                    return .cappuccino
+                case .latte:
+                    return .latte
+                case .mocha:
+                    return .mocha
             }
         }
     }

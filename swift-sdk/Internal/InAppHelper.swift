@@ -32,18 +32,18 @@ struct InAppHelper {
         }
         
         switch scheme {
-        case .applewebdata:
-            ITBError("Request url contains an invalid scheme: \(url)")
-            guard let urlPath = getUrlPath(url: url) else {
-                return nil
-            }
-            return .localResource(name: urlPath)
-        case .iterable:
-            return .iterableCustomAction(name: dropScheme(urlString: url.absoluteString, scheme: scheme.rawValue))
-        case .action, .itbl:
-            return .customAction(name: dropScheme(urlString: url.absoluteString, scheme: scheme.rawValue))
-        case .other:
-            return .regularUrl(url)
+            case .applewebdata:
+                ITBError("Request url contains an invalid scheme: \(url)")
+                guard let urlPath = getUrlPath(url: url) else {
+                    return nil
+                }
+                return .localResource(name: urlPath)
+            case .iterable:
+                return .iterableCustomAction(name: dropScheme(urlString: url.absoluteString, scheme: scheme.rawValue))
+            case .action, .itbl:
+                return .customAction(name: dropScheme(urlString: url.absoluteString, scheme: scheme.rawValue))
+            case .other:
+                return .regularUrl(url)
         }
     }
     
@@ -95,17 +95,17 @@ struct InAppHelper {
     // process each parseResult and consumes failed message, if messageId is present
     private static func process(parseResult: Result<IterableInAppMessage, InAppMessageParser.ParseError>, apiClient: ApiClientProtocol) -> IterableInAppMessage? {
         switch parseResult {
-        case let .failure(parseError):
-            switch parseError {
-            case let .parseFailed(reason: reason, messageId: messageId):
-                ITBError(reason)
-                if let messageId = messageId {
-                    apiClient.inAppConsume(messageId: messageId)
+            case let .failure(parseError):
+                switch parseError {
+                    case let .parseFailed(reason: reason, messageId: messageId):
+                        ITBError(reason)
+                        if let messageId = messageId {
+                            apiClient.inAppConsume(messageId: messageId)
+                        }
+                        return nil
                 }
-                return nil
-            }
-        case let .success(val):
-            return val
+            case let .success(val):
+                return val
         }
     }
 }

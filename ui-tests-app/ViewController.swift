@@ -334,20 +334,20 @@ class ViewController: UIViewController {
     @objc private func handleNotification(_ notification: NSNotification) {
         ITBInfo()
         switch notification.name {
-        case .handleIterableUrl:
-            if let userInfo = notification.userInfo {
-                if let url = userInfo["url"] as? String {
-                    statusLbl.text = url
+            case .handleIterableUrl:
+                if let userInfo = notification.userInfo {
+                    if let url = userInfo["url"] as? String {
+                        statusLbl.text = url
+                    }
                 }
-            }
-        case .handleIterableCustomAction:
-            if let userInfo = notification.userInfo {
-                if let customActionName = userInfo["name"] as? String {
-                    statusLbl.text = customActionName
+            case .handleIterableCustomAction:
+                if let userInfo = notification.userInfo {
+                    if let customActionName = userInfo["name"] as? String {
+                        statusLbl.text = customActionName
+                    }
                 }
-            }
-        default:
-            break
+            default:
+                break
         }
     }
 }

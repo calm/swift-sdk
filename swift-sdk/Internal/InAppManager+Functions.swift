@@ -25,14 +25,14 @@ struct MessagesProcessor {
         ITBDebug()
         
         switch processNextMessage() {
-        case let .show(message):
-            updateMessage(message, didProcessTrigger: true, consumed: !message.saveToInbox)
-            return .show(message: message, messagesMap: messagesMap)
-        case let .skip(message):
-            updateMessage(message, didProcessTrigger: true)
-            return processMessages()
-        case .none, .wait:
-            return .noShow(messagesMap: messagesMap)
+            case let .show(message):
+                updateMessage(message, didProcessTrigger: true, consumed: !message.saveToInbox)
+                return .show(message: message, messagesMap: messagesMap)
+            case let .skip(message):
+                updateMessage(message, didProcessTrigger: true)
+                return processMessages()
+            case .none, .wait:
+                return .noShow(messagesMap: messagesMap)
         }
     }
     

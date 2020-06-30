@@ -356,12 +356,12 @@ final class IterableAPIInternal: NSObject, PushTrackerProtocol, AuthProvider {
     private var pushIntegrationName: String? {
         if let pushIntegrationName = config.pushIntegrationName, let sandboxPushIntegrationName = config.sandboxPushIntegrationName {
             switch config.pushPlatform {
-            case .production:
-                return pushIntegrationName
-            case .sandbox:
-                return sandboxPushIntegrationName
-            case .auto:
-                return dependencyContainer.apnsTypeChecker.apnsType == .sandbox ? sandboxPushIntegrationName : pushIntegrationName
+                case .production:
+                    return pushIntegrationName
+                case .sandbox:
+                    return sandboxPushIntegrationName
+                case .auto:
+                    return dependencyContainer.apnsTypeChecker.apnsType == .sandbox ? sandboxPushIntegrationName : pushIntegrationName
             }
         } else if let pushIntegrationName = config.pushIntegrationName {
             return pushIntegrationName
@@ -402,12 +402,12 @@ final class IterableAPIInternal: NSObject, PushTrackerProtocol, AuthProvider {
     
     private static func pushServicePlatformToString(_ pushServicePlatform: PushServicePlatform, apnsType: APNSType) -> String {
         switch pushServicePlatform {
-        case .production:
-            return JsonValue.apnsProduction.jsonStringValue
-        case .sandbox:
-            return JsonValue.apnsSandbox.jsonStringValue
-        case .auto:
-            return apnsType == .sandbox ? JsonValue.apnsSandbox.jsonStringValue : JsonValue.apnsProduction.jsonStringValue
+            case .production:
+                return JsonValue.apnsProduction.jsonStringValue
+            case .sandbox:
+                return JsonValue.apnsSandbox.jsonStringValue
+            case .auto:
+                return apnsType == .sandbox ? JsonValue.apnsSandbox.jsonStringValue : JsonValue.apnsProduction.jsonStringValue
         }
     }
     

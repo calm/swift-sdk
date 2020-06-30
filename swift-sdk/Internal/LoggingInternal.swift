@@ -28,12 +28,12 @@ struct IterableLogUtil {
     
     static func marker(forLevel level: LogLevel) -> String {
         switch level {
-        case .error:
-            return "❤️"
-        case .info:
-            return "💛"
-        case .debug:
-            return "💚"
+            case .error:
+                return "❤️"
+            case .info:
+                return "💛"
+            case .debug:
+                return "💚"
         }
     }
     

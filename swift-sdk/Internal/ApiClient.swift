@@ -93,19 +93,19 @@ class ApiClient {
     
     func convertToURLRequest(iterableRequest: IterableRequest) -> URLRequest? {
         switch iterableRequest {
-        case let .get(getRequest):
-            return IterableRequestUtil.createGetRequest(forApiEndPoint: endPoint, path: getRequest.path, headers: createIterableHeaders(), args: getRequest.args)
-        case let .post(postRequest):
-            return IterableRequestUtil.createPostRequest(forApiEndPoint: endPoint, path: postRequest.path, headers: createIterableHeaders(), args: postRequest.args, body: postRequest.body)
+            case let .get(getRequest):
+                return IterableRequestUtil.createGetRequest(forApiEndPoint: endPoint, path: getRequest.path, headers: createIterableHeaders(), args: getRequest.args)
+            case let .post(postRequest):
+                return IterableRequestUtil.createPostRequest(forApiEndPoint: endPoint, path: postRequest.path, headers: createIterableHeaders(), args: postRequest.args, body: postRequest.body)
         }
     }
     
     func send(iterableRequestResult result: Result<IterableRequest, IterableError>) -> Future<SendRequestValue, SendRequestError> {
         switch result {
-        case let .success(iterableRequest):
-            return send(iterableRequest: iterableRequest)
-        case let .failure(iterableError):
-            return SendRequestError.createErroredFuture(reason: iterableError.localizedDescription)
+            case let .success(iterableRequest):
+                return send(iterableRequest: iterableRequest)
+            case let .failure(iterableError):
+                return SendRequestError.createErroredFuture(reason: iterableError.localizedDescription)
         }
     }
     

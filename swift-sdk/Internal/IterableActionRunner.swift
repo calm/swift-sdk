@@ -59,20 +59,20 @@ struct IterableActionRunner {
                                              customActionHandler: CustomActionHandler? = nil) -> Bool {
         let actionType = detectActionType(fromAction: action)
         switch actionType {
-        case .noop:
-            return false
-        case let .openUrl(url):
-            if urlHandler?(url) == true {
-                return true
-            } else {
+            case .noop:
                 return false
-            }
-        case let .customAction(type):
-            if customActionHandler?(type) == true {
-                return true
-            } else {
-                return false
-            }
+            case let .openUrl(url):
+                if urlHandler?(url) == true {
+                    return true
+                } else {
+                    return false
+                }
+            case let .customAction(type):
+                if customActionHandler?(type) == true {
+                    return true
+                } else {
+                    return false
+                }
         }
     }
     

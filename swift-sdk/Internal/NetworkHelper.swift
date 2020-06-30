@@ -59,14 +59,14 @@ struct NetworkHelper {
             let result = createDataResultFromNetworkResponse(data: data, response: response, error: error)
             
             switch result {
-            case let .success(value):
-                DispatchQueue.main.async {
-                    promise.resolve(with: value)
-                }
-            case let .failure(error):
-                DispatchQueue.main.async {
-                    promise.reject(with: error)
-                }
+                case let .success(value):
+                    DispatchQueue.main.async {
+                        promise.resolve(with: value)
+                    }
+                case let .failure(error):
+                    DispatchQueue.main.async {
+                        promise.reject(with: error)
+                    }
             }
         }
         
@@ -98,10 +98,10 @@ struct NetworkHelper {
             let result = createResultFromNetworkResponse(data: data, response: response, error: error)
             
             switch result {
-            case let .success(value):
-                promise.resolve(with: value)
-            case let .failure(error):
-                promise.reject(with: error)
+                case let .success(value):
+                    promise.resolve(with: value)
+                case let .failure(error):
+                    promise.reject(with: error)
             }
         }
         
