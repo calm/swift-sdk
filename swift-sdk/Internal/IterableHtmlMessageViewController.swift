@@ -103,7 +103,7 @@ class IterableHtmlMessageViewController: UIViewController {
         resizeWebView()
     }
     
-    override open func viewWillDisappear(_ animated: Bool) {
+    open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         guard let messageMetadata = parameters.messageMetadata else {

@@ -564,7 +564,7 @@ import UIKit
     
     static var internalImplementation: IterableAPIInternal?
     
-    override private init() { super.init() }
+    private override init() { super.init() }
 }
 
 // MARK: - DEPRECATED

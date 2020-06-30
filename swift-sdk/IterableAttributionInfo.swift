@@ -36,7 +36,7 @@ import Foundation
         try container.encode(messageId, forKey: .messageId)
     }
     
-    override public var description: String {
+    public override var description: String {
         "campaignId: \(campaignId), templateId: \(templateId), messageId: \(messageId)"
     }
 }

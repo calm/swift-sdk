@@ -27,7 +27,7 @@ struct MockNotificationResponse: NotificationResponseProtocol {
 @objcMembers
 public class MockUrlDelegate: NSObject, IterableURLDelegate {
     // returnValue = true if we handle the url, else false
-    override private convenience init() {
+    private convenience override init() {
         self.init(returnValue: false)
     }
     
@@ -51,7 +51,7 @@ public class MockUrlDelegate: NSObject, IterableURLDelegate {
 @objcMembers
 public class MockCustomActionDelegate: NSObject, IterableCustomActionDelegate {
     // returnValue is reserved for future, don't rely on this
-    override private convenience init() {
+    private convenience override init() {
         self.init(returnValue: false)
     }
     
@@ -128,7 +128,7 @@ public class MockPushTracker: NSObject, PushTrackerProtocol {
 }
 
 @objc public class MockApplicationStateProvider: NSObject, ApplicationStateProviderProtocol {
-    override private convenience init() {
+    private convenience override init() {
         self.init(applicationState: .active)
     }
     

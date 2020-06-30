@@ -91,7 +91,7 @@ open class IterableInboxNavigationViewController: UINavigationController {
         setup()
     }
     
-    override open func viewDidLoad() {
+    open override func viewDidLoad() {
         ITBInfo()
         
         super.viewDidLoad()
@@ -113,7 +113,7 @@ open class IterableInboxNavigationViewController: UINavigationController {
         }
     }
     
-    override open func viewWillAppear(_ animated: Bool) {
+    open override func viewWillAppear(_ animated: Bool) {
         ITBInfo()
         
         super.viewWillAppear(animated)
@@ -121,7 +121,7 @@ open class IterableInboxNavigationViewController: UINavigationController {
         inboxViewController?.viewModel.viewWillAppear()
     }
     
-    override open func viewWillDisappear(_ animated: Bool) {
+    open override func viewWillDisappear(_ animated: Bool) {
         ITBInfo()
         
         super.viewWillDisappear(animated)
@@ -130,7 +130,7 @@ open class IterableInboxNavigationViewController: UINavigationController {
     }
     
     /// Do not use this
-    override private init(rootViewController: UIViewController) {
+    private override init(rootViewController: UIViewController) {
         ITBInfo()
         
         super.init(rootViewController: rootViewController)
@@ -139,7 +139,7 @@ open class IterableInboxNavigationViewController: UINavigationController {
     }
     
     /// Do not use this
-    override private init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+    private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         ITBInfo()
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()

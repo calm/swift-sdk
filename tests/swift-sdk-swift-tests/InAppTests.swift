@@ -1426,13 +1426,13 @@ class InAppTests: XCTestCase {
 }
 
 extension IterableInAppTrigger {
-    override public var description: String {
+    public override var description: String {
         "type: \(type)"
     }
 }
 
 extension IterableHtmlInAppContent {
-    override public var description: String {
+    public override var description: String {
         IterableUtil.describe("type", type,
                               "edgeInsets", edgeInsets,
                               "backgroundAlpha", backgroundAlpha,
@@ -1441,7 +1441,7 @@ extension IterableHtmlInAppContent {
 }
 
 extension IterableInboxMetadata {
-    override public var description: String {
+    public override var description: String {
         IterableUtil.describe("title", title ?? "nil",
                               "subtitle", subtitle ?? "nil",
                               "icon", icon ?? "nil",
@@ -1450,7 +1450,7 @@ extension IterableInboxMetadata {
 }
 
 extension IterableInAppMessage {
-    override public var description: String {
+    public override var description: String {
         IterableUtil.describe("messageId", messageId,
                               "campaignId", campaignId ?? "nil",
                               "saveToInbox", saveToInbox,
