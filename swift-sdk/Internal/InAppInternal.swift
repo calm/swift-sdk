@@ -6,7 +6,6 @@
 import Foundation
 
 protocol InAppFetcherProtocol {
-    // Fetch from server and sync
     func fetch() -> Future<[IterableInAppMessage], Error>
 }
 
@@ -33,6 +32,10 @@ class InAppFetcher: InAppFetcherProtocol {
         self.apiClient = apiClient
     }
     
+    deinit {
+        ITBInfo()
+    }
+    
     func fetch() -> Future<[IterableInAppMessage], Error> {
         ITBInfo()
         
@@ -44,13 +47,10 @@ class InAppFetcher: InAppFetcherProtocol {
         return InAppHelper.getInAppMessagesFromServer(apiClient: apiClient, number: numMessages).mapFailure { $0 }
     }
     
+    // MARK: - Private/Internal
+    
     private weak var apiClient: ApiClientProtocol?
     
-    deinit {
-        ITBInfo()
-    }
-    
-    // how many messages to fetch
     private let numMessages = 100
 }
 
@@ -64,20 +64,20 @@ struct InAppMessageContext {
     var inboxSessionId: String?
     
     static func from(message: IterableInAppMessage, location: InAppLocation?, inboxSessionId: String? = nil) -> InAppMessageContext {
-        return InAppMessageContext(messageId: message.messageId,
-                                   saveToInbox: message.saveToInbox,
-                                   silentInbox: message.silentInbox,
-                                   location: location,
-                                   inboxSessionId: inboxSessionId)
+        InAppMessageContext(messageId: message.messageId,
+                            saveToInbox: message.saveToInbox,
+                            silentInbox: message.silentInbox,
+                            location: location,
+                            inboxSessionId: inboxSessionId)
     }
     
-    // For backward compatibility, assume .inApp
+    /// For backward compatibility, assume .inApp
     static func from(messageId: String, deviceMetadata _: DeviceMetadata) -> InAppMessageContext {
-        return InAppMessageContext(messageId: messageId,
-                                   saveToInbox: false,
-                                   silentInbox: false,
-                                   location: .inApp,
-                                   inboxSessionId: nil)
+        InAppMessageContext(messageId: messageId,
+                            saveToInbox: false,
+                            silentInbox: false,
+                            location: .inApp,
+                            inboxSessionId: nil)
     }
     
     func toMessageContextDictionary() -> [AnyHashable: Any] {

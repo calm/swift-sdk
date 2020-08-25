@@ -99,7 +99,7 @@ class InAppHelperTests: XCTestCase {
                       appName _: String,
                       deviceId _: String,
                       sdkVersion _: String?,
-                      deviceAttributes: [String: String],
+                      deviceAttributes _: [String: String],
                       pushServicePlatform _: String,
                       notificationsEnabled _: Bool) -> Future<SendRequestValue, SendRequestError> {
             fatalError()
@@ -118,6 +118,10 @@ class InAppHelperTests: XCTestCase {
         }
         
         func track(pushOpen _: NSNumber, templateId _: NSNumber?, messageId _: String?, appAlreadyRunning _: Bool, dataFields _: [AnyHashable: Any]?) -> Future<SendRequestValue, SendRequestError> {
+            fatalError()
+        }
+        
+        func track(pushOpen _: NSNumber, templateId _: NSNumber?, messageId _: String, appAlreadyRunning _: Bool, dataFields _: [AnyHashable: Any]?) -> Future<SendRequestValue, SendRequestError> {
             fatalError()
         }
         

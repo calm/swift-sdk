@@ -94,7 +94,7 @@ class InAppTests: XCTestCase {
         wait(for: [expectation1, expectation2, expectation3], timeout: testExpectationTimeout)
     }
     
-    // skip the inApp in inAppDelegate
+    // skip the in-app in inAppDelegate
     func testAutoShowInAppSingleOverride() {
         let expectation1 = expectation(description: "testAutoShowInAppSingleOverride")
         expectation1.isInverted = true
@@ -219,7 +219,7 @@ class InAppTests: XCTestCase {
         wait(for: [expectation2], timeout: testExpectationTimeout)
     }
     
-    // inApp is shown and url is opened when link is clicked
+    // in-app is shown and url is opened when link is clicked
     func testAutoShowInAppOpenUrlByDefault() {
         let expectation1 = expectation(description: "testAutoShowInAppOpenUrlByDefault")
         
@@ -248,7 +248,7 @@ class InAppTests: XCTestCase {
     }
     
     // override in url delegate
-    // inApp is shown but does not open external url
+    // in-app is shown but does not open external url
     func testAutoShowInAppUrlDelegateOverride() {
         let expectation1 = expectation(description: "testAutoShowInAppUrlDelegateOverride")
         expectation1.isInverted = true
@@ -276,6 +276,66 @@ class InAppTests: XCTestCase {
         mockInAppFetcher.mockInAppPayloadFromServer(internalApi: internalApi, TestInAppPayloadGenerator.createPayloadWithUrl(numMessages: 1))
         
         wait(for: [expectation1], timeout: testExpectationTimeoutForInverted)
+    }
+    
+    func testAutoDisplayOff() {
+        let expectation1 = expectation(description: "testAutoDisplayOff")
+        
+        let mockInAppFetcher = MockInAppFetcher()
+        
+        let internalAPI = IterableAPIInternal.initializeForTesting(
+            config: IterableConfig(),
+            inAppFetcher: mockInAppFetcher
+        )
+        
+        // verify the default value of auto displaying
+        XCTAssertFalse(internalAPI.inAppManager.isAutoDisplayPaused)
+        
+        internalAPI.inAppManager.isAutoDisplayPaused = true
+        
+        // verify that auto display has been set to true
+        XCTAssertTrue(internalAPI.inAppManager.isAutoDisplayPaused)
+        
+        // the fetcher normally shows the first one, but here, it shouldn't with auto displaying off
+        mockInAppFetcher.mockMessagesAvailableFromServer(internalApi: internalAPI, messages: [getEmptyInAppMessage()]).onSuccess { messageCount in
+            XCTAssertEqual(messageCount, 1)
+            
+            expectation1.fulfill()
+        }
+        
+        wait(for: [expectation1], timeout: testExpectationTimeoutForInverted)
+    }
+    
+    func testAutoDisplayResumed() {
+        let expectation1 = expectation(description: "make sure auto display pausing works")
+        let expectation2 = expectation(description: "resume auto display pausing, show next message")
+        
+        let mockInAppFetcher = MockInAppFetcher()
+        
+        let internalAPI = IterableAPIInternal.initializeForTesting(
+            config: IterableConfig(),
+            inAppFetcher: mockInAppFetcher
+        )
+        
+        internalAPI.inAppManager.isAutoDisplayPaused = true
+        
+        mockInAppFetcher.mockMessagesAvailableFromServer(internalApi: internalAPI, messages: [getEmptyInAppMessage()]).onSuccess { messageCount in
+            XCTAssertEqual(messageCount, 1)
+            
+            expectation1.fulfill()
+        }
+        
+        wait(for: [expectation1], timeout: testExpectationTimeoutForInverted)
+        
+        internalAPI.inAppManager.isAutoDisplayPaused = false
+        
+        mockInAppFetcher.mockMessagesAvailableFromServer(internalApi: internalAPI, messages: [getEmptyInAppMessage()]).onSuccess { messageCount in
+            XCTAssertEqual(messageCount, 0)
+            
+            expectation2.fulfill()
+        }
+        
+        wait(for: [expectation2], timeout: testExpectationTimeoutForInverted)
     }
     
     func testShowInAppWithConsume() {
@@ -1367,11 +1427,11 @@ class InAppTests: XCTestCase {
     }
     
     private func getEmptyInAppMessage() -> IterableInAppMessage {
-        return IterableInAppMessage(messageId: "", campaignId: 0, content: getEmptyInAppContent())
+        IterableInAppMessage(messageId: "", campaignId: 0, content: getEmptyInAppContent())
     }
     
     private func getEmptyInAppContent() -> IterableInAppContent {
-        return IterableHtmlInAppContent(edgeInsets: .zero, backgroundAlpha: 0, html: "")
+        IterableHtmlInAppContent(edgeInsets: .zero, backgroundAlpha: 0, html: "")
     }
     
     fileprivate func verifyCustomActionIsCalled(expectation1: XCTestExpectation, customActionScheme: String, customActionName: String) {
@@ -1426,42 +1486,42 @@ class InAppTests: XCTestCase {
 }
 
 extension IterableInAppTrigger {
-    public override var description: String {
-        return "type: \(type)"
+    override public var description: String {
+        "type: \(type)"
     }
 }
 
 extension IterableHtmlInAppContent {
-    public override var description: String {
-        return IterableUtil.describe("type", type,
-                                     "edgeInsets", edgeInsets,
-                                     "backgroundAlpha", backgroundAlpha,
-                                     "html", html, pairSeparator: " = ", separator: ", ")
+    override public var description: String {
+        IterableUtil.describe("type", type,
+                              "edgeInsets", edgeInsets,
+                              "backgroundAlpha", backgroundAlpha,
+                              "html", html, pairSeparator: " = ", separator: ", ")
     }
 }
 
 extension IterableInboxMetadata {
-    public override var description: String {
-        return IterableUtil.describe("title", title ?? "nil",
-                                     "subtitle", subtitle ?? "nil",
-                                     "icon", icon ?? "nil",
-                                     pairSeparator: " = ", separator: ", ")
+    override public var description: String {
+        IterableUtil.describe("title", title ?? "nil",
+                              "subtitle", subtitle ?? "nil",
+                              "icon", icon ?? "nil",
+                              pairSeparator: " = ", separator: ", ")
     }
 }
 
 extension IterableInAppMessage {
-    public override var description: String {
-        return IterableUtil.describe("messageId", messageId,
-                                     "campaignId", campaignId ?? "nil",
-                                     "saveToInbox", saveToInbox,
-                                     "inboxMetadata", inboxMetadata ?? "nil",
-                                     "trigger", trigger,
-                                     "createdAt", createdAt ?? "nil",
-                                     "expiresAt", expiresAt ?? "nil",
-                                     "content", content,
-                                     "didProcessTrigger", didProcessTrigger,
-                                     "consumed", consumed,
-                                     "read", read,
-                                     pairSeparator: " = ", separator: "\n")
+    override public var description: String {
+        IterableUtil.describe("messageId", messageId,
+                              "campaignId", campaignId ?? "nil",
+                              "saveToInbox", saveToInbox,
+                              "inboxMetadata", inboxMetadata ?? "nil",
+                              "trigger", trigger,
+                              "createdAt", createdAt ?? "nil",
+                              "expiresAt", expiresAt ?? "nil",
+                              "content", content,
+                              "didProcessTrigger", didProcessTrigger,
+                              "consumed", consumed,
+                              "read", read,
+                              pairSeparator: " = ", separator: "\n")
     }
 }

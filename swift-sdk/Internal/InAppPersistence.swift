@@ -6,8 +6,8 @@
 import Foundation
 import UIKit
 
-// This is needed because String(describing: ...) returns wrong
-// value for this enum when it is exposed to Objective C
+/// This is needed because String(describing: ...) returns the
+/// wrong value for this enum when it is exposed to Objective-C
 extension IterableInAppContentType: CustomStringConvertible {
     public var description: String {
         switch self {
@@ -36,8 +36,8 @@ extension IterableInAppContentType {
     }
 }
 
-// This is needed because String(describing: ...) returns wrong
-// value for this enum when it is exposed to Objective C
+/// This is needed because String(describing: ...) returns the
+/// wrong value for this enum when it is exposed to Objective-C
 extension IterableInAppTriggerType: CustomStringConvertible {
     public var description: String {
         switch self {
@@ -52,7 +52,6 @@ extension IterableInAppTriggerType: CustomStringConvertible {
 }
 
 extension IterableInAppTriggerType {
-    // Internal
     static func from(string: String) -> IterableInAppTriggerType {
         switch string.lowercased() {
         case String(describing: IterableInAppTriggerType.immediate).lowercased():
@@ -73,15 +72,15 @@ extension IterableInAppTrigger {
     static let neverTrigger = create(withTriggerType: .never)
     
     static func create(withTriggerType triggerType: IterableInAppTriggerType) -> IterableInAppTrigger {
-        return IterableInAppTrigger(dict: createTriggerDict(forTriggerType: triggerType))
+        IterableInAppTrigger(dict: createTriggerDict(forTriggerType: triggerType))
     }
     
     static func createDefaultTriggerDict() -> [AnyHashable: Any] {
-        return createTriggerDict(forTriggerType: .defaultTriggerType)
+        createTriggerDict(forTriggerType: .defaultTriggerType)
     }
     
     static func createTriggerDict(forTriggerType triggerType: IterableInAppTriggerType) -> [AnyHashable: Any] {
-        return [JsonKey.InApp.type: String(describing: triggerType)]
+        [JsonKey.InApp.type: String(describing: triggerType)]
     }
 }
 
@@ -278,7 +277,7 @@ extension IterableInAppMessage: Codable {
     }
     
     private static func createDefaultContent() -> IterableInAppContent {
-        return IterableHtmlInAppContent(edgeInsets: .zero, backgroundAlpha: 0.0, html: "")
+        IterableHtmlInAppContent(edgeInsets: .zero, backgroundAlpha: 0.0, html: "")
     }
     
     private static func serialize(customPayload: [AnyHashable: Any]?) -> Data? {
@@ -366,7 +365,6 @@ class InAppFilePersister: InAppPersistenceProtocol {
     private let ext: String
 }
 
-// Files Utility class
 struct FileHelper {
     static func getUrl(filename: String, ext: String) -> URL? {
         guard let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
